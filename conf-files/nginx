@@ -1,0 +1,12 @@
+server {
+    server_name  <domain>;
+
+    location / {
+        try_files $uri @<name>;
+    }
+
+    location @<name> {
+        include uwsgi_params;
+        uwsgi_pass unix:<socket>;
+    }
+}  
