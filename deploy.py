@@ -9,8 +9,9 @@ from fabric.operations import put
 
 from . import conf_file
 from .config import (
-    NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, VIRTUALENV_NAME,
-    SOCKET, UWSGI_LOG_DIR, TOUCH_FILE, ENVIRONMENT)
+    NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, PYTHON,
+    VIRTUALENV_NAME, SOCKET, UWSGI_LOG_DIR, WEB_LOG_DIR, TOUCH_FILE,
+    ENVIRONMENT)
 
 
 def setup_dirs():
@@ -28,9 +29,11 @@ def setup_dirs():
                 with cd(os.path.join(WEB_ROOT_DIR, 'www')):
                     run('git checkout -t origin/' + DEFAULT_BRANCH)
 
-    # uwsgi log
     if not exists(UWSGI_LOG_DIR):
-        sudo('mkdir -p '.format(UWSGI_LOG_DIR))
+        sudo('mkdir -p {}'.format(UWSGI_LOG_DIR))
+
+    if not exists(WEB_LOG_DIR):
+        sudo('mkdir -p {}'.format(WEB_LOG_DIR))
 
 
 def mkvirtualenv():
@@ -38,7 +41,7 @@ def mkvirtualenv():
         return
     # with prefix('WORKON_HOME=$HOME/.virtualenvs'):
     with prefix('source /usr/local/bin/virtualenvwrapper.sh'):
-        run('mkvirtualenv -p python3 {}'.format(VIRTUALENV_NAME))
+        run('mkvirtualenv -p {} {}'.format(PYTHON, VIRTUALENV_NAME))
 
 
 def git_pull():

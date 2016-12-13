@@ -7,6 +7,6 @@ server {
 
     location @<name> {
         include uwsgi_params;
-        uwsgi_pass unix:<socket>;
+        uwsgi_pass <socket>;
     }
 }  

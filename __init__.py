@@ -2,9 +2,6 @@
 from fabric.api import env, task, run, put
 from fabric.contrib.files import exists
 
-# Load configuration
-import config  # noqa
-
 # Fabfile modules
 from . import conf_file
 from . import server
@@ -27,7 +24,7 @@ def pip_conf():
 
 
 @task
-def prepare_server():
+def first_deploy():
     server.prepare()
     deploy_.setup_dirs()
     deploy_.mkvirtualenv()
