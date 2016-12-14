@@ -18,13 +18,15 @@ def prepare():
 
 
 def install_pip():
+    if not exists('/usr/bin/python'):
+        sudo('apt-get -y install python')
+    if not exists('/usr/bin/python3'):
+        sudo('apt-get -y install python3')
     if not exists('/usr/local/bin/pip'):
-        run('curl http://corp.lankaifa.com:8091/get-pip.py | '
-            'sudo -u $(whoami)  python')
-        # run('curl --silent --show-error --retry 3 '
-        #     'https://bootstrap.pypa.io/get-pip.py | '
-        #     'sudo -u $(whoami) python')
-    run('sudo -u $(whoami) pip install -U pip')
+        run('curl --silent --show-error --retry 3 '
+            'https://bootstrap.pypa.io/get-pip.py | '
+            'sudo -H python')
+    run('sudo -H pip install -U pip')
 
 
 def install_virtualenv():
