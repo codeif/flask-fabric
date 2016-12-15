@@ -4,10 +4,6 @@ python2环境下安装如下package::
     pip install werkzeug
 
 
-使用豆瓣的pypi::
-
-    fab pip_conf
-
 配置服务器，并部署::
 
     fab [-H ubuntu@server-ip] first_deploy

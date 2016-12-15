@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from fabric.api import env, task, run, put
-from fabric.contrib.files import exists
+from fabric.api import env, task, run
 
 # Fabfile modules
-from . import conf_file
 from . import server
 from . import deploy as deploy_
 
@@ -13,14 +11,6 @@ env.use_ssh_config = True
 @task(alias='remote_info')
 def uname():
     run('uname -a')
-
-
-@task
-def pip_conf():
-    if not exists('~/.pip/'):
-        run('mkdir ~/.pip')
-    path = conf_file.get_path('pip.conf')
-    put(path, '~/.pip/')
 
 
 @task
