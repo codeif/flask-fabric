@@ -28,7 +28,7 @@ pythonpath = items['pythonpath']
 
 # NAME
 if 'NAME' not in _config:
-    m = re.search('/(\w+)/www', pythonpath)
+    m = re.search('/([^/]+)/www', pythonpath)
     if m:
         _config['NAME'] = m.group(1)
 
