@@ -1,3 +1,12 @@
+配置Flask环境， 部署工程的fabric代码
+=====================================
+
+`Demo <https://github.com/codeif/flask-demo>`_
+
+在Flask工程中添加子模块::
+
+    git submodule add https://github.com/codeif/flask-fabric.git fabfile
+
 python2环境下安装如下package::
 
     pip install fabric
