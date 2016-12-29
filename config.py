@@ -4,6 +4,8 @@ import re
 import ConfigParser
 from werkzeug.utils import import_string
 
+from . import conf_file
+
 _config = dict()
 obj = import_string('fabconfig')
 for key in dir(obj):
@@ -13,6 +15,8 @@ for key in dir(obj):
 _config.setdefault('DEFAULT_BRANCH', None)
 _config.setdefault('CONFIG_CLASS_NAME', 'Config')
 _config.setdefault('WEB_LOG_DIR', 'Config')
+_config.setdefault('NGINX_CONF', conf_file.get_path('nginx'))
+_config.setdefault('SUPERVISOR_CONF', conf_file.get_path('supervisor.conf'))
 
 assert 'DOMAIN' in _config
 assert 'REPOSITORY' in _config
@@ -83,3 +87,5 @@ UWSGI_LOG_DIR = _config['UWSGI_LOG_DIR']
 WEB_LOG_DIR = _config['WEB_LOG_DIR']
 TOUCH_FILE = _config['TOUCH_FILE']
 ENVIRONMENT = _config['ENVIRONMENT']
+NGINX_CONF = _config['NGINX_CONF']
+SUPERVISOR_CONF = _config['SUPERVISOR_CONF']

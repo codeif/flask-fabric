@@ -7,11 +7,10 @@ from fabric.colors import green
 from fabric.contrib.files import exists, sed
 from fabric.operations import put
 
-from . import conf_file
 from .config import (
     NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, PYTHON,
     VIRTUALENV_NAME, SOCKET, UWSGI_LOG_DIR, WEB_LOG_DIR, TOUCH_FILE,
-    ENVIRONMENT)
+    ENVIRONMENT, NGINX_CONF, SUPERVISOR_CONF)
 
 
 def setup_dirs():
@@ -61,11 +60,10 @@ def config_supervisor():
     print(green('config supervisor'))
 
     conf_name = NAME + '.conf'
-    local_path = conf_file.get_path('supervisor.conf')
     remote_path = '/etc/supervisor/conf.d/{}'.format(conf_name)
 
     if not exists(remote_path):
-        put(local_path, remote_path, use_sudo=True)
+        put(SUPERVISOR_CONF, remote_path, use_sudo=True)
         sed(remote_path, '<name>', NAME, use_sudo=True, backup='')
         uwsgi_ini_file = os.path.join(WEB_ROOT_DIR, 'www/uwsgi.ini')
         sed(remote_path, '<environment>', ENVIRONMENT,
@@ -79,11 +77,10 @@ def config_supervisor():
 def config_nginx():
     print(green('config nginx'))
 
-    local_path = conf_file.get_path('nginx')
     remote_path = '/etc/nginx/sites-available/{}'.format(NAME)
 
     if not exists(remote_path):
-        put(local_path, remote_path, use_sudo=True)
+        put(NGINX_CONF, remote_path, use_sudo=True)
         sed(remote_path, '<name>', NAME, use_sudo=True, backup='')
         sed(remote_path, '<domain>', DOMAIN, use_sudo=True, backup='')
         sed(remote_path, '<socket>', SOCKET, use_sudo=True, backup='')
