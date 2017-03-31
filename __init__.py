@@ -39,4 +39,9 @@ def deploy():
 
 @task
 def restart():
+    deploy_.restart()
+
+
+@task
+def restart_celery():
     celery.restart()
