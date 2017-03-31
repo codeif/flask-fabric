@@ -4,6 +4,7 @@ from fabric.api import env, task, run
 # Fabfile modules
 from . import server
 from . import deploy as deploy_
+from . import celery
 
 env.use_ssh_config = True
 
@@ -24,6 +25,11 @@ def first_deploy():
 
 
 @task
+def deploy_celery():
+    celery.config_supervisor()
+
+
+@task
 def deploy():
     deploy_.git_pull()
     deploy_.install_requirements()
@@ -33,4 +39,4 @@ def deploy():
 
 @task
 def restart():
-    deploy_.restart()
+    celery.restart()

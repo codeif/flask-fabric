@@ -17,6 +17,7 @@ _config.setdefault('CONFIG_CLASS_NAME', 'Config')
 _config.setdefault('WEB_LOG_DIR', 'Config')
 _config.setdefault('NGINX_CONF', conf_file.get_path('nginx'))
 _config.setdefault('SUPERVISOR_CONF', conf_file.get_path('supervisor.conf'))
+_config.setdefault('CELERY_CONF', conf_file.get_path('celery.conf'))
 
 assert 'DOMAIN' in _config
 assert 'REPOSITORY' in _config
@@ -89,3 +90,4 @@ TOUCH_FILE = _config['TOUCH_FILE']
 ENVIRONMENT = _config['ENVIRONMENT']
 NGINX_CONF = _config['NGINX_CONF']
 SUPERVISOR_CONF = _config['SUPERVISOR_CONF']
+CELERY_CONF = _config['CELERY_CONF']
