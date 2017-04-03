@@ -7,6 +7,8 @@ from fabric.colors import green
 from fabric.contrib.files import exists, sed
 from fabric.operations import put
 
+from .utils import mkdir
+
 from .config import (
     NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, PYTHON,
     VIRTUALENV_NAME, SOCKET, UWSGI_LOG_DIR, WEB_LOG_DIR, TOUCH_FILE,
@@ -14,8 +16,7 @@ from .config import (
 
 
 def setup_dirs():
-    if not exists(WEB_ROOT_DIR):
-        sudo('mkdir -p {}'.format(WEB_ROOT_DIR))
+    if mkdir(WEB_ROOT_DIR, use_sudo=True):
         sudo('chown -R {0}:{0} {1}'.format(env.user, WEB_ROOT_DIR))
 
     with cd(WEB_ROOT_DIR):
@@ -28,11 +29,8 @@ def setup_dirs():
                 with cd(os.path.join(WEB_ROOT_DIR, 'www')):
                     run('git checkout -t origin/' + DEFAULT_BRANCH)
 
-    if not exists(UWSGI_LOG_DIR):
-        sudo('mkdir -p {}'.format(UWSGI_LOG_DIR))
-
-    if not exists(WEB_LOG_DIR):
-        sudo('mkdir -p {}'.format(WEB_LOG_DIR))
+    mkdir(UWSGI_LOG_DIR, use_sudo=True)
+    mkdir(WEB_LOG_DIR, use_sudo=True)
 
 
 def mkvirtualenv():

@@ -2,6 +2,8 @@
 from fabric.api import sudo, run
 from fabric.contrib.files import exists, append, contains
 
+from .utils import mkdir
+
 
 def prepare():
     sudo('apt-get -q update')
@@ -32,9 +34,7 @@ def install_pip():
 def install_virtualenv():
     run('sudo -H pip install virtualenv')
     run('sudo -H pip install virtualenvwrapper')
-    # mkdir $HOME/.virtualenvs
-    if not exists('$HOME/.virtualenvs'):
-        run('mkdir $HOME/.virtualenvs')
+    mkdir('$HOME/.virtualenvs')
     if not contains('$HOME/.bashrc', 'export WORKON_HOME'):
         append('$HOME/.bashrc', 'export WORKON_HOME=$HOME/.virtualenvs')
     if not contains('$HOME/.bashrc', 'virtualenvwrapper.sh'):

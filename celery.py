@@ -2,16 +2,17 @@
 import os.path
 
 from fabric.api import sudo, run
-from fabric.colors import green
 from fabric.contrib.files import exists, sed
 from fabric.operations import put
+
+from .utils import mkdir
 
 from .config import (
     NAME, WEB_ROOT_DIR, VIRTUALENV_NAME, ENVIRONMENT, CELERY_CONF)
 
 
 def config_supervisor():
-    print(green('config celery supervisor'))
+    mkdir('/var/log/celery', use_sudo=True)
 
     conf_name = NAME + '-celery.conf'
     remote_path = '/etc/supervisor/conf.d/{}'.format(conf_name)
@@ -20,8 +21,8 @@ def config_supervisor():
         put(CELERY_CONF, remote_path, use_sudo=True)
         sed(remote_path, '<name>', NAME, use_sudo=True, backup='')
         directory = os.path.join(WEB_ROOT_DIR, 'www')
-        celery_path = '{}/{}/bin/celery'.format(run('echo $WORKON_HOME'),
-                                                VIRTUALENV_NAME)
+        celery_path = '{}/.virtualenvs/{}/bin/celery'.format(
+            run('echo $HOME'), VIRTUALENV_NAME)
         sed(remote_path, '<environment>', ENVIRONMENT,
             use_sudo=True, backup='')
         sed(remote_path, '<directory>', directory,
