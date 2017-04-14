@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from fabric.api import env, task, run
+from fabric.api import env, task, run, sudo
+from fabric.contrib.files import exists
 
 # Fabfile modules
 from . import server
@@ -12,6 +13,12 @@ env.use_ssh_config = True
 @task(alias='remote_info')
 def uname():
     run('uname -a')
+
+
+@task
+def pre_pycurl():
+    if not exists('/usr/bin/curl-config'):
+        sudo('apt-get -y -q install libcurl4-openssl-dev libssl-dev')
 
 
 @task
