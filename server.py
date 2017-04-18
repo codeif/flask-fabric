@@ -23,7 +23,7 @@ def install_pip():
     if not exists('/usr/bin/python'):
         sudo('apt-get -y install python')
     if not exists('/usr/bin/python3'):
-        sudo('apt-get -y install python3')
+        sudo('apt-get -y install python3-dev')
     if not exists('/usr/local/bin/pip'):
         run('curl --silent --show-error --retry 3 '
             'https://bootstrap.pypa.io/get-pip.py | '
