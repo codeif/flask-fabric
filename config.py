@@ -18,6 +18,7 @@ _config.setdefault('WEB_LOG_DIR', 'Config')
 _config.setdefault('NGINX_CONF', conf_file.get_path('nginx'))
 _config.setdefault('SUPERVISOR_CONF', conf_file.get_path('supervisor.conf'))
 _config.setdefault('CELERY_CONF', conf_file.get_path('celery.conf'))
+_config.setdefault('PIP_UPGRADE', False)
 
 assert 'DOMAIN' in _config
 assert 'REPOSITORY' in _config
@@ -91,3 +92,4 @@ ENVIRONMENT = _config['ENVIRONMENT']
 NGINX_CONF = _config['NGINX_CONF']
 SUPERVISOR_CONF = _config['SUPERVISOR_CONF']
 CELERY_CONF = _config['CELERY_CONF']
+PIP_UPGRADE = _config['PIP_UPGRADE']

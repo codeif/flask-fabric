@@ -12,7 +12,7 @@ from .utils import mkdir
 from .config import (
     NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, PYTHON,
     VIRTUALENV_NAME, SOCKET, UWSGI_LOG_DIR, WEB_LOG_DIR, TOUCH_FILE,
-    ENVIRONMENT, NGINX_CONF, SUPERVISOR_CONF)
+    ENVIRONMENT, NGINX_CONF, SUPERVISOR_CONF, PIP_UPGRADE)
 
 
 def setup_dirs():
@@ -51,7 +51,10 @@ def install_requirements():
     with cd(os.path.join(WEB_ROOT_DIR, 'www')):
         with prefix('source ~/.virtualenvs/{}/bin/activate'
                     .format(VIRTUALENV_NAME)):
-            run('pip install -q -r requirements.txt')
+            if PIP_UPGRADE:
+                run('pip install -q -U -r requirements.txt')
+            else:
+                run('pip install -q -r requirements.txt')
 
 
 def config_supervisor():
