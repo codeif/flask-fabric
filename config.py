@@ -47,7 +47,7 @@ if 'WEB_ROOT_DIR' not in _config:
 assert _config['WEB_ROOT_DIR']
 
 if 'ENVIRONMENT' not in _config:
-    _config['ENVIRONMENT'] = ('{}_APP_SETTINGS="{}.config.{}"'
+    _config['ENVIRONMENT'] = ('{}_CONFIG="{}.config.{}"'
                               .format(NAME.upper(), NAME,
                                       _config['CONFIG_CLASS_NAME']))
 if 'TOUCH_FILE' not in _config:

@@ -63,7 +63,7 @@ TOUCH_FILE          重启服务touch的file， 从uwsgi.ini中获取,
                     如果得不到这个值则使用supervisorctl restart <NAME>
                     的方式重启
 CONFIG_CLASS_NAME   默认为Config，用于生成默认ENVIRONMENT
-ENVIRONMENT         默认为<NAME.upper>_APP_SETTINGS="name.config.<CONFIG_CLASS_NAME>"
+ENVIRONMENT         默认为<NAME.upper>_CONFIG="name.config.<CONFIG_CLASS_NAME>"
 NIGNX_CONF          本地nginx配置文件路径
 SUPERVISOR_CONF     本地supervisor配置文件路径
 CELERY_CONF         本地celery配置文件路径
