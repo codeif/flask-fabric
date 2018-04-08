@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 import os.path
 
-from fabric.api import sudo, run
+from fabric.api import run, sudo
 from fabric.contrib.files import exists, sed
 from fabric.operations import put
 
+from .config import (CELERY_CONF, ENVIRONMENT, NAME, VIRTUALENV_NAME,
+                     WEB_ROOT_DIR)
 from .utils import mkdir
-
-from .config import (
-    NAME, WEB_ROOT_DIR, VIRTUALENV_NAME, ENVIRONMENT, CELERY_CONF)
 
 
 def config_supervisor():

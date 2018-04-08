@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 import os.path
+from datetime import datetime
 
-from fabric.api import env, sudo, run, cd, prefix
+from fabric.api import cd, env, prefix, run, sudo
 from fabric.colors import green
 from fabric.contrib.files import exists, sed
 from fabric.operations import put
 
+from .config import (DEFAULT_BRANCH, DOMAIN, ENVIRONMENT, NAME, NGINX_CONF,
+                     PIP_UPGRADE, PYTHON, REPOSITORY, SOCKET, SUPERVISOR_CONF,
+                     TOUCH_FILE, UWSGI_LOG_DIR, VIRTUALENV_NAME, WEB_LOG_DIR,
+                     WEB_ROOT_DIR)
 from .utils import mkdir
-
-from .config import (
-    NAME, DOMAIN, REPOSITORY, DEFAULT_BRANCH, WEB_ROOT_DIR, PYTHON,
-    VIRTUALENV_NAME, SOCKET, UWSGI_LOG_DIR, WEB_LOG_DIR, TOUCH_FILE,
-    ENVIRONMENT, NGINX_CONF, SUPERVISOR_CONF, PIP_UPGRADE)
 
 
 def setup_dirs():

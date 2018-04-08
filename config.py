@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import ConfigParser
 import os.path
 import re
-import ConfigParser
+
 from werkzeug.utils import import_string
 
 from . import conf_file

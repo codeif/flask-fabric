@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from fabric.api import sudo, run
-from fabric.contrib.files import exists, append, contains
+from fabric.api import run, sudo
+from fabric.contrib.files import append, contains, exists
 
 from .utils import mkdir
 
